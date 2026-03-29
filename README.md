@@ -19,7 +19,7 @@ The project is written in C# (.NET 8) using Selenium WebDriver and xUnit. Runs w
 2. Clone repo and restore the NuGet packages
 3. Run  tests with Visual Studio 2022 Test Explorer
 
-##Original task:
+## Original task:
 Task description
 
 Site for testing: https://practice.qabrains.com/ecommerce
