@@ -20,9 +20,6 @@ public class ProductsPage : BasePage
     // Product cards
     private static readonly By ProductCards = By.XPath("//div[contains(@class,'flex flex-col gap-3 relative group')]");
 
-    // Favorite buttons
-    private static readonly By FavoriteButtons = By.XPath("//button[contains(@class,'cursor-pointer')]");
-
     // Product prices
     private static readonly By ProductPrices = By.XPath("//div[contains(@class,'flex items-center justify-between font-oswald')]//span[contains(@class,'text-lg font-bold text-black')]");
 
@@ -108,13 +105,12 @@ public class ProductsPage : BasePage
 
         foreach (var product in products)
         {
-            // Get product name from img alt attribute
             var imgElement = product.FindElement(By.XPath(".//img"));
             var altText = imgElement.GetAttribute("alt");
 
             if (!string.IsNullOrEmpty(altText) && altText.Contains(productName))
             {
-                // Find the favorite button (it's in a span sibling)
+                // Find the favorite button
                 var favoriteBtn = product.FindElement(By.XPath(".//following-sibling::span//button"));
                 Logger.Info($"Clicking favorite button for product: {productName}");
                 favoriteBtn.Click();
@@ -166,7 +162,6 @@ public class ProductsPage : BasePage
 
     /// <summary>
     /// Marks specified number of products as favorites and returns their names
-    /// Uses JavaScript click to avoid element intercept issues
     /// </summary>
     public List<string> MarkProductsAsFavoriteAndGetNames(int count)
     {
@@ -204,7 +199,7 @@ public class ProductsPage : BasePage
 
             try
             {
-                // Find the favorite button within this product card
+                // Find the favorite button within product card
                 var favoriteBtn = productCards[i].FindElement(By.XPath(".//button[contains(@class,'cursor-pointer')]"));
 
                 // Scroll into view and click using JavaScript
@@ -213,7 +208,7 @@ public class ProductsPage : BasePage
                 js.ExecuteScript("arguments[0].click();", favoriteBtn);
 
                 Logger.Info($"Marked product as favorite: {productName ?? "unknown"}");
-                System.Threading.Thread.Sleep(300); // Wait for UI update
+                System.Threading.Thread.Sleep(300); 
             }
             catch (Exception ex)
             {
@@ -226,11 +221,6 @@ public class ProductsPage : BasePage
 
     /// <summary>
     /// Selects a sort option from the combobox dropdown
-    /// Sort options are:
-    /// - "Price: Low to High" -> "Low to High (Price)"
-    /// - "Price: High to Low" -> "High to Low (Price)"
-    /// - "Name: A to Z" -> "A to Z (Ascending)"
-    /// - "Name: Z to A" -> "Z to A (Descending)"
     /// </summary>
     public void SelectSortOption(string sortOption)
     {
@@ -238,11 +228,10 @@ public class ProductsPage : BasePage
 
         try
         {
-            // Click on the combobox to open the dropdown
+            // click on the combobox
             Click(SortDropdown);
-            System.Threading.Thread.Sleep(300); // Wait for dropdown animation
+            System.Threading.Thread.Sleep(300); // dropdown animation
 
-            // Map the display text to the actual option text in the dropdown
             var optionText = sortOption switch
             {
                 "Price: Low to High" => "Low to High (Price)",
@@ -253,7 +242,6 @@ public class ProductsPage : BasePage
                 _ => sortOption
             };
 
-            // Find and click the option
             var optionLocator = By.XPath($"//div[@role='option' and contains(text(),'{optionText}')]");
             var optionElement = Wait.Until(d => Driver.FindElement(optionLocator));
             optionElement.Click();
@@ -270,16 +258,14 @@ public class ProductsPage : BasePage
 
     /// <summary>
     /// Gets all product prices using the price span locator
-    /// Price format: <span class="text-lg font-bold text-black">$49.99</span>
     /// </summary>
     public List<decimal> GetProductPrices()
     {
         var prices = new List<decimal>();
 
-        // 1. Give the UI a moment to refresh after a sort/load
+        // refresh
         System.Threading.Thread.Sleep(1500);
 
-        // 2. Find the price elements directly
         var priceElements = FindElements(ProductPrices);
 
         if (priceElements == null || priceElements.Count == 0)
@@ -290,11 +276,10 @@ public class ProductsPage : BasePage
 
         foreach (var priceElement in priceElements)
         {
-
             var priceText = priceElement.Text.Trim();
             if (string.IsNullOrWhiteSpace(priceText)) continue;
 
-            // Extract price
+            // extract price
             var cleanPrice = priceText
                 .Replace("$", "")
                 .Replace(" ", "")
@@ -335,7 +320,7 @@ public class ProductsPage : BasePage
                 RawText = productCards[i].Text
             };
 
-            // Get corresponding price if available
+            // get price if available
             if (i < priceElements.Count)
             {
                 var priceText = priceElements[i].Text.Trim()
@@ -362,19 +347,14 @@ public class ProductsPage : BasePage
         return cards?.Count ?? 0;
     }
 
-    /// <summary>
-    /// Checks if products page is displayed
-    /// </summary>
-    public bool IsProductsPageDisplayed()
+
+/*    public bool IsProductsPageDisplayed()
     {
         return GetProductCount() > 0;
     }
 
-    /// <summary>
-    /// Checks if sort dropdown is available
-    /// </summary>
     public bool IsSortDropdownAvailable()
     {
         return IsElementVisible(SortDropdown);
-    }
+    }*/
 }

@@ -6,7 +6,7 @@ using NLog;
 namespace BusinessLayer.PageObjects;
 
 /// <summary>
-/// Base class for page objects - provides common functionality
+/// Base class for page objects 
 /// </summary>
 public abstract class BasePage
 {
@@ -25,18 +25,13 @@ public abstract class BasePage
         Wait = new WebDriverWait(driver, TimeSpan.FromSeconds(DefaultWaitTimeout));
     }
 
-    /// <summary>
-    /// Click on an element by locator
-    /// </summary>
     protected void Click(By locator)
     {
         Logger.Debug($"Clicking: {locator}");
         DriverOperations.Click(locator);
     }
 
-    /// <summary>
-    /// Type text into an element
-    /// </summary>
+
     protected void TypeText(By locator, string text)
     {
         Logger.Debug($"Typing '{text}' into: {locator}");

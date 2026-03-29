@@ -3,7 +3,7 @@ namespace BusinessLayer.Models;
 public class Product
 {
     /// <summary>
-    /// Product name, used for identification and comparison in tests.
+    /// Product name, used for identification and comparison in tests
     /// </summary>
     public string Name { get; set; } = string.Empty;
 
@@ -12,7 +12,7 @@ public class Product
 
     public override string ToString() => $"Product: {Name}, Price: {Price}";
     /// <summary>
-    /// Override Equals to compare products by name (case-insensitive) for easier test assertions
+    /// Override Equals to compare products by name 
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
@@ -25,7 +25,7 @@ public class Product
         return false;
     }
     /// <summary>
-    /// Override GetHashCode to be consistent with Equals, using case-insensitive name hash code
+    /// Override GetHashCode to be consistent with Equals
     /// </summary>
     /// <returns></returns>
     public override int GetHashCode() => Name.ToLowerInvariant().GetHashCode();

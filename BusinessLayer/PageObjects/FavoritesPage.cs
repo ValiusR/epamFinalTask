@@ -4,12 +4,9 @@ using BusinessLayer.Models;
 
 namespace BusinessLayer.PageObjects;
 
-/// <summary>
-/// Favorites page object - handles favorites page interactions
-/// </summary>
 public class FavoritesPage : BasePage
 {
-    // locators based on actual site HTML
+    // locators based on site HTML
     private static readonly By FavoriteProducts = By.XPath("//div[contains(@class,'flex flex-col gap-3 relative group')]");
     private static readonly By EmptyFavoritesMessage = By.XPath("//p[contains(text(),'No favorites') or contains(text(),'empty') or contains(text(),'No items')]");
     private static readonly By PageTitle = By.XPath("//h1[contains(text(),'Favorites')] | //h2[contains(text(),'Favorites')]");
@@ -67,29 +64,19 @@ public class FavoritesPage : BasePage
         return productNames;
     }
 
-    /// <summary>
-    /// Get count of favorite products
-    /// </summary>
+
     public int GetFavoriteProductCount() => FindElements(FavoriteProducts).Count;
 
-    /// <summary>
-    /// Check if there are any favorite products
-    /// </summary>
+
     public bool HasFavoriteProducts() => GetFavoriteProductCount() > 0;
 
-    /// <summary>
-    /// Check if empty favorites message is displayed
-    /// </summary>
-    public bool IsEmptyFavoritesMessageDisplayed() => IsElementVisible(EmptyFavoritesMessage);
 
-    /// <summary>
-    /// Check if favorites page is displayed
-    /// </summary>
-    public bool IsFavoritesPageDisplayed() => IsElementVisible(PageTitle) || IsElementVisible(FavoriteProducts);
+/*    public bool IsEmptyFavoritesMessageDisplayed() => IsElementVisible(EmptyFavoritesMessage);
 
-    /// <summary>
-    /// Check if specific product is in favorites
-    /// </summary>
+
+    public bool IsFavoritesPageDisplayed() => IsElementVisible(PageTitle) || IsElementVisible(FavoriteProducts);*/
+
+
     public bool ContainsProduct(string productName)
     {
         var productNames = GetFavoriteProductNames();

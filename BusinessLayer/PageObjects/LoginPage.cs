@@ -3,9 +3,7 @@ using BusinessLayer.Driver;
 
 namespace BusinessLayer.PageObjects;
 
-/// <summary>
-/// Login page object - handles login form interactions
-/// </summary>
+
 public class LoginPage : BasePage
 {
     // locators based on site HTML
@@ -23,6 +21,11 @@ public class LoginPage : BasePage
     // user account after login
     private static readonly By UserAccountLink = By.XPath("//span[contains(@class,'user-name')]");
 
+    /// <summary>
+    /// Constructor for LoginPage, initializes with driver operations and web driver
+    /// </summary>
+    /// <param name="driverOperations"></param>
+    /// <param name="driver"></param>
     public LoginPage(IDriverOperations driverOperations, IWebDriver driver) : base(driverOperations, driver)
     {
     }
@@ -52,7 +55,7 @@ public class LoginPage : BasePage
     }
 
     /// <summary>
-    /// Check if username error is displayed
+    /// Check if userame error is displayed
     /// </summary>
     public bool IsUsernameErrorDisplayed()
     {

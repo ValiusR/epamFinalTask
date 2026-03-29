@@ -63,7 +63,7 @@ public class UC1_LoginWithWrongCredentialsTests : TestBase
         Logger.Info($"UC-1 test completed successfully on {browserType}");
     }
     /// <summary>
-    /// Test to verify error messages for multiple invalid 
+    /// Test to verify error messages for multiple invallid 
     /// credential scenarios (empty email, empty password, wrong email, wrong password)
     /// </summary>
     /// <param name="credentials"></param>

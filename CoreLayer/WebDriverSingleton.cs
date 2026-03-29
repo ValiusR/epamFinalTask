@@ -101,23 +101,4 @@ public sealed class WebDriverSingleton
         }
     }
 
-    /// <summary>
-    /// Cleanup all drivers
-    /// </summary>
-    public void QuitAll()
-    {
-        Logger.Info("QuitAll - cleaning up drivers");
-        QuitCurrent();
-    }
-
-    /// <summary>
-    /// Dispose all resources
-    /// </summary>
-    public void Dispose()
-    {
-        Logger.Info("Disposing WebDriverSingleton");
-        QuitCurrent();
-        _threadDriver.Dispose();
-        _currentBrowser.Dispose();
-    }
 }

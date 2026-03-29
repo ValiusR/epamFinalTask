@@ -26,7 +26,7 @@ public abstract class TestBase : IDisposable
     }
 
     /// <summary>
-    /// Initialize WebDriver and page objects for testing
+    /// Initialize WebDriver and page objects
     /// </summary>
     protected void Initialize(BrowserType browserType = BrowserType.Chrome)
     {

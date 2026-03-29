@@ -92,8 +92,8 @@ public class UC2_FavoriteProductsTests : TestBase
             $"User {credentials.Description} should have at least 2 favorite products on {browserType}");
     }
     /// <summary>
-    /// Test to verify that favorites persist after
-    /// navigating away and back to the Favorites page
+    /// Test to verify that favorites exist after
+    /// going away and back to the Favorites page
     /// </summary>
     /// <param name="browserType"></param>
     [Theory(DisplayName = "UC-2: Verify favorites persist after page navigation")]
