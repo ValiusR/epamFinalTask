@@ -1,5 +1,4 @@
 using Xunit;
-using Xunit.Abstractions;
 using FluentAssertions;
 using CoreLayer.Configuration;
 using BusinessLayer.Models;
@@ -12,7 +11,7 @@ namespace TestLayer.Tests;
 /// </summary>
 public class UC2_FavoriteProductsTests : TestBase
 {
-    public UC2_FavoriteProductsTests(ITestOutputHelper output) : base() { }
+    public UC2_FavoriteProductsTests() : base() { }
 
     // Helper to combine  existing ValidCredentialsData with Browser Types
     public static IEnumerable<object[]> GetValidCredentialsWithBrowser()

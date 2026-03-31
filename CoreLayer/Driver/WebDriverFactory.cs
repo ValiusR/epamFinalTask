@@ -13,8 +13,8 @@ public class WebDriverFactory : IWebDriverFactory
 {
     private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
     
-    // path to Drivers folder
-    private static readonly string DriversFolder = @"C:\Users\Valius\source\repos\epamFinalTask\BusinessLayer\Driver\";
+    // path to Drivers folder - relative to the application base directory
+    private static readonly string DriversFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..");
 
     public IWebDriver CreateDriver(BrowserType browserType)
     {

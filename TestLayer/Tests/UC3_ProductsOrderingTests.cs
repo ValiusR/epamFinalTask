@@ -1,5 +1,4 @@
 using Xunit;
-using Xunit.Abstractions;
 using FluentAssertions;
 using CoreLayer.Configuration;
 using BusinessLayer.Models;
@@ -14,7 +13,7 @@ namespace TestLayer.Tests;
 /// </summary>
 public class UC3_ProductsOrderingTests : TestBase
 {
-    public UC3_ProductsOrderingTests(ITestOutputHelper output) : base() { }
+    public UC3_ProductsOrderingTests() : base() { }
 
     // Helper to combine  existing SortOptionsData with Browser Types
     public static IEnumerable<object[]> GetSortOptionsWithBrowser()

@@ -347,14 +347,4 @@ public class ProductsPage : BasePage
         return cards?.Count ?? 0;
     }
 
-
-/*    public bool IsProductsPageDisplayed()
-    {
-        return GetProductCount() > 0;
-    }
-
-    public bool IsSortDropdownAvailable()
-    {
-        return IsElementVisible(SortDropdown);
-    }*/
 }

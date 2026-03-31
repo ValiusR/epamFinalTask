@@ -70,13 +70,6 @@ public class FavoritesPage : BasePage
 
     public bool HasFavoriteProducts() => GetFavoriteProductCount() > 0;
 
-
-/*    public bool IsEmptyFavoritesMessageDisplayed() => IsElementVisible(EmptyFavoritesMessage);
-
-
-    public bool IsFavoritesPageDisplayed() => IsElementVisible(PageTitle) || IsElementVisible(FavoriteProducts);*/
-
-
     public bool ContainsProduct(string productName)
     {
         var productNames = GetFavoriteProductNames();

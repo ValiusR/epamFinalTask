@@ -1,5 +1,4 @@
 using Xunit;
-using Xunit.Abstractions;
 using FluentAssertions;
 using CoreLayer.Configuration;
 using BusinessLayer.Models;
@@ -12,7 +11,7 @@ namespace TestLayer.Tests;
 /// </summary>
 public class UC1_LoginWithWrongCredentialsTests : TestBase
 {
-    public UC1_LoginWithWrongCredentialsTests(ITestOutputHelper output) : base() { }
+    public UC1_LoginWithWrongCredentialsTests() : base() { }
     /// <summary>
     /// Helper to combine existing
     /// InvalidCredentialsData with Browser Types for data-driven testing
