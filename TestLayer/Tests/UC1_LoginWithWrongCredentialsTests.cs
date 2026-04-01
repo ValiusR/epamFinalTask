@@ -50,9 +50,6 @@ public class UC1_LoginWithWrongCredentialsTests : TestBase
         LoginPage.EnterPassword(invalidCredentials.Password);
         LoginPage.ClickLoginButton();
 
-        // lazy but no time for explicit waits sorry
-        System.Threading.Thread.Sleep(1000);
-
         Logger.Info("Verifying error messages are displayed");
         LoginPage.IsUsernameErrorDisplayed().Should().BeTrue(
             "Username error message should be displayed for invalid email");
@@ -79,8 +76,6 @@ public class UC1_LoginWithWrongCredentialsTests : TestBase
         LoginPage.EnterEmail(credentials.Email);
         LoginPage.EnterPassword(credentials.Password);
         LoginPage.ClickLoginButton();
-
-        System.Threading.Thread.Sleep(1000);
 
         Logger.Info($"Verifying error messages for: {credentials.Description ?? credentials.Email}");
 

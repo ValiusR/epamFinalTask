@@ -81,4 +81,53 @@ public abstract class BasePage
 
     public string CurrentUrl => DriverOperations.CurrentUrl;
     public string Title => DriverOperations.Title;
+
+    /// <summary>
+    /// Wait for element to be visible
+    /// </summary>
+    protected IWebElement WaitForElementVisible(By locator, int timeoutInSeconds = 10)
+    {
+        var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(timeoutInSeconds));
+        return wait.Until(d =>
+        {
+            try
+            {
+                var element = d.FindElement(locator);
+                return element.Displayed ? element : null;
+            }
+            catch (NoSuchElementException)
+            {
+                return null;
+            }
+        });
+    }
+
+    /// <summary>
+    /// Wait for element to be clickable
+    /// </summary>
+    protected IWebElement WaitForElementClickable(By locator, int timeoutInSeconds = 10)
+    {
+        var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(timeoutInSeconds));
+        return wait.Until(d =>
+        {
+            try
+            {
+                var element = d.FindElement(locator);
+                return element.Enabled && element.Displayed ? element : null;
+            }
+            catch (NoSuchElementException)
+            {
+                throw new NoSuchElementException($"Element not found: {locator}");
+            }
+        });
+    }
+
+    /// <summary>
+    /// Wait for a specific condition to be true
+    /// </summary>
+    protected void WaitForCondition(Func<IWebDriver, bool> condition, int timeoutInSeconds = 10)
+    {
+        var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(timeoutInSeconds));
+        wait.Until(d => condition(d));
+    }
 }

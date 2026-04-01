@@ -1,7 +1,7 @@
 using OpenQA.Selenium;
 
 namespace BusinessLayer.Driver;
-
+// for bridge layer implementation
 public interface IDriverOperations
 {
     void NavigateTo(string url);

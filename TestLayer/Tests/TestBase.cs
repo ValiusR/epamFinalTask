@@ -51,7 +51,6 @@ public abstract class TestBase : IDisposable
     {
         Logger.Info($"Logging in with: {email}");
         LoginPage.Login(email, password);
-        System.Threading.Thread.Sleep(500);
     }
 
     /// <summary>

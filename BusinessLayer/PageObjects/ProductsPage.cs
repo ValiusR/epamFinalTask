@@ -45,13 +45,11 @@ public class ProductsPage : BasePage
 
         // Scroll into view first
         ((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].scrollIntoView({block: 'center'});", userMenuBtn);
-        System.Threading.Thread.Sleep(300);
 
         var actions = new OpenQA.Selenium.Interactions.Actions(Driver);
         actions.MoveToElement(userMenuBtn).Click().Perform();
 
         Logger.Info("User menu clicked");
-        System.Threading.Thread.Sleep(500); // Wait for dropdown animation
     }
 
     /// <summary>
@@ -74,7 +72,6 @@ public class ProductsPage : BasePage
 
                 ((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].click();", favoritesItem);
                 Logger.Info("Favorites menu item clicked successfully");
-                System.Threading.Thread.Sleep(500);
                 return;
             }
             catch (WebDriverTimeoutException ex)
@@ -114,7 +111,6 @@ public class ProductsPage : BasePage
                 var favoriteBtn = product.FindElement(By.XPath(".//following-sibling::span//button"));
                 Logger.Info($"Clicking favorite button for product: {productName}");
                 favoriteBtn.Click();
-                System.Threading.Thread.Sleep(200);
                 return;
             }
         }
@@ -204,11 +200,9 @@ public class ProductsPage : BasePage
 
                 // Scroll into view and click using JavaScript
                 js.ExecuteScript("arguments[0].scrollIntoView(true);", favoriteBtn);
-                System.Threading.Thread.Sleep(100);
                 js.ExecuteScript("arguments[0].click();", favoriteBtn);
 
-                Logger.Info($"Marked product as favorite: {productName ?? "unknown"}");
-                System.Threading.Thread.Sleep(300); 
+                Logger.Info($"Marked product as favorite: {productName ?? "unknown"}"); 
             }
             catch (Exception ex)
             {
@@ -230,7 +224,6 @@ public class ProductsPage : BasePage
         {
             // click on the combobox
             Click(SortDropdown);
-            System.Threading.Thread.Sleep(300); // dropdown animation
 
             var optionText = sortOption switch
             {
@@ -247,7 +240,32 @@ public class ProductsPage : BasePage
             optionElement.Click();
 
             Logger.Info($"Sort option '{sortOption}' selected successfully");
-            System.Threading.Thread.Sleep(500); // Wait for sorting to apply
+            
+            // Wait for dropdown to close and page to refresh with sorted results
+            WaitForCondition(d => !d.FindElement(SortDropdown).GetAttribute("aria-expanded")?.Contains("true") ?? true, 3);
+            
+            // Wait for page to be ready and products to be present
+            WaitForCondition(d => ((IJavaScriptExecutor)d).ExecuteScript("return document.readyState").ToString() == "complete", 5);
+            WaitForCondition(d => d.FindElements(ProductPrices).Count > 0, 5);
+            
+            // Additional wait to ensure DOM is refreshed after sorting
+            // Use JavaScript to check if the page has been updated
+            WaitForCondition(d => 
+            {
+                try
+                {
+                    var script = "return document.querySelector('[role=\"combobox\"]')?.getAttribute('aria-expanded')";
+                    var result = ((IJavaScriptExecutor)d).ExecuteScript(script);
+                    return result == null || result.ToString() != "true";
+                }
+                catch
+                {
+                    return true;
+                }
+            }, 3);
+            
+            // Force a delay to ensure DOM is fully refreshed after sorting
+            System.Threading.Thread.Sleep(500);
         }
         catch (Exception ex)
         {
@@ -263,9 +281,10 @@ public class ProductsPage : BasePage
     {
         var prices = new List<decimal>();
 
-        // refresh
-        System.Threading.Thread.Sleep(1500);
-
+        // Wait for page to be ready and products to be present
+        WaitForCondition(d => ((IJavaScriptExecutor)d).ExecuteScript("return document.readyState").ToString() == "complete", 5);
+        WaitForCondition(d => d.FindElements(ProductPrices).Count > 0, 5);
+        
         var priceElements = FindElements(ProductPrices);
 
         if (priceElements == null || priceElements.Count == 0)
@@ -302,6 +321,11 @@ public class ProductsPage : BasePage
     public List<Product> GetAllProducts()
     {
         var products = new List<Product>();
+        
+        // Wait for page to be ready and products to be present
+        WaitForCondition(d => ((IJavaScriptExecutor)d).ExecuteScript("return document.readyState").ToString() == "complete", 5);
+        WaitForCondition(d => d.FindElements(ProductCards).Count > 0, 5);
+        
         var productCards = FindElements(ProductCards);
         var priceElements = FindElements(ProductPrices);
 

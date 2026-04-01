@@ -53,7 +53,6 @@ public class UC3_ProductsOrderingTests : TestBase
         Logger.Info("Applying sort: Price: Low to High");
         ProductsPage.SelectSortOption("Price: Low to High");
 
-        System.Threading.Thread.Sleep(500);
         var pricesAfterSorting = ProductsPage.GetProductPrices();
 
         Logger.Info("Verifying products are sorted correctly");
@@ -88,7 +87,6 @@ public class UC3_ProductsOrderingTests : TestBase
         PerformLogin(credentials);
         ProductsPage.SelectSortOption("Price: High to Low");
 
-        System.Threading.Thread.Sleep(500);
         var pricesAfterSorting = ProductsPage.GetProductPrices();
 
         pricesAfterSorting.Should().BeInDescendingOrder("Products should be ordered from highest to lowest price");
@@ -120,7 +118,6 @@ public class UC3_ProductsOrderingTests : TestBase
         var countBefore = productsBefore.Count;
 
         ProductsPage.SelectSortOption("Price: Low to High");
-        System.Threading.Thread.Sleep(500);
 
         var productsAfter = ProductsPage.GetAllProducts();
         var countAfter = productsAfter.Count;
@@ -152,7 +149,6 @@ public class UC3_ProductsOrderingTests : TestBase
         PerformLogin(credentials);
         ProductsPage.SelectSortOption(sortOption);
 
-        System.Threading.Thread.Sleep(500);
         var products = ProductsPage.GetAllProducts();
 
         products.Should().NotBeEmpty($"Products should be displayed when sorted by '{sortOption}' on {browserType}");
