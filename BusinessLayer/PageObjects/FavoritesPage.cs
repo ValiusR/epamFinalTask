@@ -8,8 +8,6 @@ public class FavoritesPage : BasePage
 {
     // locators based on site HTML
     private static readonly By FavoriteProducts = By.XPath("//div[contains(@class,'flex flex-col gap-3 relative group')]");
-    private static readonly By EmptyFavoritesMessage = By.XPath("//p[contains(text(),'No favorites') or contains(text(),'empty') or contains(text(),'No items')]");
-    private static readonly By PageTitle = By.XPath("//h1[contains(text(),'Favorites')] | //h2[contains(text(),'Favorites')]");
 
     public FavoritesPage(IDriverOperations driverOperations, IWebDriver driver) : base(driverOperations, driver)
     {

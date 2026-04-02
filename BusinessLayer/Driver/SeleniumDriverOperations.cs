@@ -3,7 +3,7 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
 namespace BusinessLayer.Driver;
-
+// acts as an adapter between Selenium WebDriver and IDriverOperations interface
 public class SeleniumDriverOperations : IDriverOperations
 {
     private readonly IWebDriver _driver;

@@ -264,13 +264,11 @@ public class ProductsPage : BasePage
                 }
             }, 3);
             
-            // Force a delay to ensure DOM is fully refreshed after sorting
-            System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(1000);
         }
         catch (Exception ex)
         {
             Logger.Error($"Sort dropdown not found or not available: {ex.Message}", ex);
-            // Sort may not exist on this page - this is expected in some scenarios
         }
     }
 
